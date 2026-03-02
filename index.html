@@ -1,15 +1,93 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
-    <head>
-        <title>lun</title>
-        <meta charset="utf-8">
-    </head>
-    <body>
-        <h1>這是02/23的網頁</h1>
-        <h2>test </h2>
-        <p>我是lun</p>
+
+<head>
+    <title>lun</title>
+    <meta charset="utf-8">
+    <style>
+        .div1 {
+            width: 125px;
+            height: 175x;
+            position: fixed;
+            right: 20px;
+            top: 20px;
+            background-color: greenyellow;
+            text-align: left;
+            border: 2px solid black;
+        }
+
+        #footer {
+            background-color: black;
+            height: 50px;
+            text-align: center;
+            color: white;
+
+        }
+    </style>
+</head>
+
+<body style="height: 1000px;">
+    <main>
+        <h1>Lun的網頁</h1>
+        <ul style="list-style-type: square;">
+            <li><a href="#about">關於我</a></li>
+            <li><a href="#skills">專業技能</a></li>
+            <li><a href="#other_skills">其他技能</a></li>
+            <li><a href="#contactme">聯絡我</a></li>
+        </ul>
+
+        <h2 id="about">關於我 </h2>
+        <p>我是國立屏東大學的學生目前學習網站開發與人工智慧相關技術</p>
+        <hr />
+        <h2 id="skills">專業技能</h2>
+        <ul>
+            <li><b>HTML5</b></li>
+            <li><strong>CSS3</strong></li>
+            <li><strong>JavaScript</strong></li>
+        </ul>
+        <br />
+        <h2 id="other_skills">其他技能</h2>
+        <ul>
+            <li><b>Git版本控制</b></li>
+            <li><strong>基礎UI設計</strong></li>
+        </ul>
+
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <h2 id="contactme">聯絡我</h2>
+        <label>姓名：</label><br>
+        <input type="text" name="name" required><br><br>
+
+        <label>Email：</label><br>
+        <input type="email" name="email" required><br><br>
+
+        <label>留言：</label><br>
+        <textarea name="message" rows="5" required></textarea><br><br>
+
+        <button type="submit">送出</button>
+
         <a href="https://github.com/" target="_blank">github</a>
 
-    </body>
+        <div class="div1">
+            <ul style="list-style-type: square;">
+                <li><a href="#">最上層</a></li>
+                <li><a href="#about">關於我</a></li>
+                <li><a href="#skills">專業技能</a></li>
+                <li><a href="#other_skills">其他技能</a></li>
+                <li><a href="#contactme">聯絡我</a></li>
+                <li><a href="#footer">最下層</a></li>
+            </ul>
+        </div>
+
+        <div id="footer">
+            <p>© 2026 lun. <b>All Rights REserved</b></p>
+        </div>
+
+
+    </main>
+</body>
 
 </html>

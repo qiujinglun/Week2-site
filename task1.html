@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="utf-8">
+    <title>電科系公告列表</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 1000px;
+            /* 固定 body 高度 */
+            display: flex;
+            flex-direction: column;
+            /* 垂直排列 header → main → footer */
+        }
+
+        #div2 {
+            width: 100%;
+            height: 50px;
+            background-color: lightblue;
+            text-align: center;
+            line-height: 50px;
+            /* 文字垂直置中 */
+            margin: 0;
+            padding: 0;
+            border: none;
+        }
+
+        #div2 h1 {
+            margin: 0;
+            padding: 0;
+            font-size: 20px;
+        }
+
+        main {
+            flex: 1;
+            /* 撐滿剩下空間 */
+            margin: 20px;
+        }
+
+        .div1 {
+            width: 125px;
+            height: 175px;
+            position: fixed;
+            right: 20px;
+            top: 20px;
+            background-color: greenyellow;
+            border: 2px solid black;
+            padding: 5px;
+        }
+
+        #footer {
+            background-color: black;
+            height: 50px;
+            text-align: center;
+            color: white;
+            line-height: 50px;
+            /* 文字垂直置中 */
+        }
+
+        .block {
+            margin: 30px;
+            transition: 0.3s ease;
+            transform-origin: bottom left;
+        }
+
+        .block:hover {
+            margin: 60px;
+            transform: scale(1.3);
+            z-index: 10;
+            background-color: yellow;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="div2">
+        <header>
+            <h1>系上公告列表</h1>
+        </header>
+    </div>
+
+    <nav>
+        <ul style="list-style-type: square;">
+            <li><a href="#">最上層</a></li>
+            <li><a href="#first">第ㄧ</a></li>
+            <li><a href="#second">第二</a></li>
+            <li><a href="#third">第三</a></li>
+            <li><a href="#contactme">第四</a></li>
+            <li><a href="#footer">最下層</a></li>
+        </ul>
+    </nav>
+
+
+
+    <main>
+        <article class="block">
+            <h2 id="first">第ㄧ</h2>
+            <ul>
+                <li>
+                    <h3>【恭賀】 114學年度資訊學院實務專題成果競賽電科系獲獎名單出爐!</h3>
+                </li>
+                <li><strong>發佈日期 : 2025-12-12 最後更新日期 : 2025-12-12</strong></li>
+                <li>
+                    <p>電科系獲獎名單</p>
+                </li>
+                <li><a href="https://cs.nptu.edu.tw/p/406-1111-190024,r2125.php?Lang=zh-tw">Read more</a></li>
+            </ul>
+        </article>
+
+        <article class="block">
+            <h2 id="second">第二</h2>
+            <ul>
+                <li>
+                    <h3>【恭喜】CPE（大學程式能力檢定）114年12月9日場次榮獲佳績</h3>
+                </li>
+                <li><strong>發佈日期 : 2025-12-11 最後更新日期 : 2025-12-11</strong></li>
+                <li>
+                    <p>大學程式能力檢定</p>
+                </li>
+                <li><a href="https://cs.nptu.edu.tw/p/406-1111-189958,r2125.php?Lang=zh-tw">Read more</a></li>
+            </ul>
+        </article>
+
+        <article class="block">
+            <h2 id="third">第三</h2>
+            <ul>
+                <li>
+                    <h3>【公告】(電科系學生版本) 114-2畢業門檻審核日程表</h3>
+                </li>
+                <li><strong>發佈日期 : 2026-03-02 最後更新日期 : 2026-03-02</strong></li>
+                <li>
+                    <p>畢業門檻審核日程表</p>
+                </li>
+                <li><a href="https://cs.nptu.edu.tw/p/406-1111-192662,r881.php?Lang=zh-tw">Read more</a></li>
+            </ul>
+        </article>
+
+        <article class="block">
+            <h2 id="contactme">第四</h2>
+            <ul>
+                <li>
+                    <h3>【公告】(電科系繳件時間版本)114-2 國立屏東大學寶島陽光再生能源獎學金申請</h3>
+                </li>
+                <li><strong>發佈日期 : 2026-02-24 最後更新日期 : 2026-02-24</strong></li>
+                <li>
+                    <p>獎學金申請</p>
+                </li>
+                <li><a href="https://cs.nptu.edu.tw/p/406-1111-192415,r886.php?Lang=zh-tw">Read more</a></li>
+            </ul>
+        </article>
+
+    </main>
+
+    <div class="div1">
+        <nav>
+            <ul style="list-style-type: square;">
+                <li><a href="/index.html">主頁</a></li>
+                <li><a href="#">最上層</a></li>
+                <li><a href="#first">第ㄧ</a></li>
+                <li><a href="#second">第二</a></li>
+                <li><a href="#third">第三</a></li>
+                <li><a href="#contactme">第四</a></li>
+                <li><a href="#footer">最下層</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <footer id="footer">
+        © 2026 lun. <b>All Rights Reserved</b>
+    </footer>
+
+</body>
+
+</html>

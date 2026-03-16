@@ -9,6 +9,15 @@ div {
     border-style: inset;
 }
 
+h1 {
+    display: inline;
+}
+
+span {
+    background-color: blueviolet;
+}
+
+
 #second {
 
     color: beige;

@@ -1,0 +1,33 @@
+img {
+    display: inline-block;
+    width: 30%;
+    height: 30%;
+    margin: 1.66%;
+
+}
+
+nav {
+    display: block;
+    font-weight: bolder;
+    font-size: xx-large;
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+}
+
+body {
+
+    font-size: 20px;
+}
+
+p {
+    font-size: 0.8em;
+    margin: calc(10%/6);
+    display: inline-block;
+
+    width: 30%;
+    padding: 1em 0;
+    border-bottom: 2px solid gray;
+
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}

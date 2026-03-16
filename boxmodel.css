@@ -8,3 +8,10 @@ div {
     border-color: green;
     border-style: inset;
 }
+
+#second {
+
+    color: beige;
+    background-color: blueviolet;
+    border: 15px red dashed;
+}

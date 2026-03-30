@@ -148,6 +148,8 @@ body {
 }
 
 .panel {
+    margin-top: 10px;
+    margin-bottom: 10px;
     background-color: white;
     border-radius: 25px;
     width: 100%;

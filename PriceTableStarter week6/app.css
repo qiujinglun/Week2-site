@@ -168,3 +168,80 @@ body {
 .pricing-table .row>div:last-child .pricing-plan {
     border-bottom: none;
 }
+
+.pricing-img {
+    margin-bottom: 25px;
+    max-width: 100%;
+}
+
+.pricing-header {
+    color: #888;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.pricing-features {
+    margin: 50px 0px 25px;
+    color: #016ff9;
+}
+
+.pricing-features-item {
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-size: 12px;
+    line-height: 1.5;
+    padding: 15px 0px;
+    border-top: 1px solid #e1f1ff;
+}
+
+.pricing-features-item:last-child {
+    border-bottom: 1px solid #E1f1ff;
+}
+
+.pricing-price {
+    display: block;
+    color: #016ff9;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.pricing-button {
+    display: inline-block;
+    border: 1px solid #9dd1ff;
+    padding: 15px 35px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #9dd1ff;
+    margin: 25px 0px;
+    transition: background-color 200ms ease-in-out;
+}
+
+.pricing-button:hover {
+    background-color: aquamarine;
+}
+
+.pricing-button.is-featured {
+    background-color: #48aaff;
+    color: white;
+}
+
+.pricing-button.is-featured:hover {
+    background-color: #e710dd;
+    color: white;
+}
+
+@media (min-width: 900px) {
+    .panel {
+        flex-direction: row;
+    }
+
+    .pricing-plan {
+        border-bottom: none;
+        border-right: 1px solid #E1f1ff;
+        padding: 25px 50px;
+    }
+
+    .pricing-table .row>div:last-child .pricing-plan {
+        border-right: none;
+    }
+}

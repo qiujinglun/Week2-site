@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>學生練習版｜非同步、API 與前端資料處理</title>
+  <style>
+    :root {
+      --bg: #f7f8fb;
+      --panel: #ffffff;
+      --line: #d9deea;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --accent: #2563eb;
+      --good: #047857;
+      --bad: #b91c1c;
+      --warn: #b45309;
+      --code: #111827;
+      --codebg: #f3f4f6;
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Microsoft JhengHei", sans-serif;
+      line-height: 1.6;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      background: linear-gradient(135deg, #1d4ed8, #2563eb);
+      color: #fff;
+      padding: 24px;
+    }
+
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 30px
+    }
+
+    header p {
+      margin: 0;
+      opacity: .95
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .notice {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 20px;
+    }
+
+    .sidebar,
+    .content {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 20px;
+    }
+
+    .sidebar h2,
+    .content h2 {
+      margin-top: 0;
+      font-size: 22px
+    }
+
+    .sidebar ol {
+      padding-left: 22px;
+      margin: 8px 0 0
+    }
+
+    .sidebar li {
+      margin: 10px 0
+    }
+
+    section.demo {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 18px;
+      background: #fff;
+    }
+
+    section.demo h3 {
+      margin: 0 0 8px;
+      font-size: 20px
+    }
+
+    section.demo .goal {
+      color: var(--muted);
+      margin-bottom: 14px
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin: 12px 0;
+    }
+
+    button,
+    select {
+      font: inherit;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #fff;
+    }
+
+    button {
+      cursor: pointer;
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .output {
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      padding: 12px 14px;
+      border-radius: 10px;
+      margin-top: 10px;
+      min-height: 48px;
+    }
+
+    pre {
+      background: var(--codebg);
+      color: var(--code);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px;
+      overflow: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-size: 13px;
+    }
+
+    code {
+      font-family: Consolas, Monaco, monospace
+    }
+
+    .tip {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      padding: 12px;
+      border-radius: 10px;
+      margin: 12px 0;
+    }
+
+    .homework {
+      background: #ecfeff;
+      border: 1px solid #a5f3fc;
+      border-radius: 14px;
+      padding: 18px;
+      margin-top: 20px;
+    }
+
+    .todo {
+      color: #b91c1c;
+      font-weight: 700;
+    }
+
+    @media (max-width: 860px) {
+      .grid {
+        grid-template-columns: 1fr
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>JS ｜學生練習版</h1>
+    <p>非同步、API 與前端資料處理｜請依上課進度補齊 TODO</p>
+  </header>
+
+  <main>
+    <div class="notice">
+      <strong>使用方式：</strong>
+      這份是學生版練習檔。每個 Part 都有 <span class="todo">TODO</span>，請依老師上課講解補齊。<br>
+      完成後，按按鈕測試畫面是否符合預期。
+    </div>
+
+    <div class="grid">
+      <aside class="sidebar">
+        <h2>本週練習路線</h2>
+        <ol>
+          <li>同步流程</li>
+          <li>Callback</li>
+          <li>Promise</li>
+          <li><code>fetch()</code> + JSON</li>
+          <li><code>async / await</code></li>
+          <li>錯誤處理</li>
+          <li>整合版天氣查詢</li>
+        </ol>
+
+        <div class="tip">
+          <strong>提醒：</strong><br>
+          每一段的重點都是：<br>
+          <code>事件 → 等待 → 拿到資料 → 顯示畫面</code>
+        </div>
+      </aside>
+
+      <div class="content">
+        <h2>課堂操作區</h2>
+
+        <section class="demo">
+          <h3>Part 1｜同步流程示範</h3>
+          <div class="goal">目標：按下按鈕後，依序顯示 1.開始 → 2.做事情 → 3.結束</div>
+          <div class="row">
+            <button id="syncBtn">執行同步示範</button>
+          </div>
+          <div class="output" id="syncOutput">請完成 JavaScript 後測試。</div>
+          <pre><code>document.getElementById("syncBtn").addEventListener("click", () => {
+  const output = document.getElementById("syncOutput");
+  const lines = [];
+
+  // TODO 1：依序加入三行文字
+  // lines.push("1. 開始");
+  // lines.push("2. 做事情");
+  // lines.push("3. 結束");
+
+  // TODO 2：顯示到畫面
+  // output.innerHTML = lines.join("&lt;br&gt;");
+});</code></pre>
+        </section>
+
+        <section class="demo">
+          <h3>Part 2｜Callback 模擬非同步</h3>
+          <div class="goal">目標：模擬 2 秒後才拿到資料，並把結果顯示到畫面。</div>
+          <div class="row">
+            <button id="callbackBtn">執行 Callback 示範</button>
+          </div>
+          <div class="output" id="callbackOutput">請完成 JavaScript 後測試。</div>
+          <pre><code>function getDataWithCallback(callback) {
+  setTimeout(() =&gt; {
+    const data = "這是 2 秒後拿到的資料";
+    // TODO 1：呼叫 callback，把 data 傳出去
+  }, 2000);
+}
+
+document.getElementById("callbackBtn").addEventListener("click", () =&gt; {
+  const output = document.getElementById("callbackOutput");
+  output.innerHTML = "1. 開始請求資料&lt;br&gt;2. 等待中...";
+
+  // TODO 2：呼叫 getDataWithCallback
+  // 並在 callback 中把「資料回來了：...」加到畫面上
+});</code></pre>
+        </section>
+
+        <section class="demo">
+          <h3>Part 3｜Promise 基礎</h3>
+          <div class="goal">目標：成功時顯示成功訊息，失敗時顯示錯誤訊息。</div>
+          <div class="row">
+            <button id="promiseBtn">執行 Promise 示範</button>
+          </div>
+          <div class="output" id="promiseOutput">請完成 JavaScript 後測試。</div>
+          <pre><code>function getDataWithPromise() {
+  return new Promise((resolve, reject) =&gt; {
+    setTimeout(() =&gt; {
+      const success = true;
+
+      if (success) {
+        // TODO 1：成功時回傳資料
+      } else {
+        // TODO 2：失敗時回傳錯誤
+      }
+    }, 2000);
+  });
+}
+
+document.getElementById("promiseBtn").addEventListener("click", () =&gt; {
+  const output = document.getElementById("promiseOutput");
+  output.textContent = "開始執行 Promise，請稍候 2 秒...";
+
+  // TODO 3：用 .then() 顯示成功訊息
+  // TODO 4：用 .catch() 顯示失敗訊息
+});</code></pre>
+        </section>
+
+        <section class="demo">
+          <h3>Part 4｜<code>fetch()</code> + JSON</h3>
+          <div class="goal">目標：使用 fetch 查詢台北目前氣溫。</div>
+          <div class="row">
+            <button id="weatherBtn">查詢台北天氣（fetch 版本）</button>
+          </div>
+          <div class="output" id="weatherOutput">請完成 JavaScript 後測試。</div>
+          <pre><code>document.getElementById("weatherBtn").addEventListener("click", () =&gt; {
+  const output = document.getElementById("weatherOutput");
+  const url = "https://api.open-meteo.com/v1/forecast?latitude=25.05&amp;longitude=121.52&amp;current=temperature_2m";
+
+  output.textContent = "查詢中...";
+
+  // TODO 1：使用 fetch(url)
+  // TODO 2：第一層 then 拿到 response，並回傳 response.json()
+  // TODO 3：第二層 then 拿到 data，取出 data.current.temperature_2m
+  // TODO 4：把溫度顯示在 output
+  // TODO 5：加上 catch，顯示「查詢失敗」
+});</code></pre>
+        </section>
+
+        <section class="demo">
+          <h3>Part 5｜<code>async / await</code> 改寫</h3>
+          <div class="goal">目標：把 fetch 版本改寫成 async/await。</div>
+          <div class="row">
+            <button id="weatherBtn2">查詢台北天氣（async/await 版本）</button>
+          </div>
+          <div class="output" id="weatherOutput2">請完成 JavaScript 後測試。</div>
+          <pre><code>async function getWeatherAsync() {
+  const output = document.getElementById("weatherOutput2");
+  const url = "https://api.open-meteo.com/v1/forecast?latitude=25.05&amp;longitude=121.52&amp;current=temperature_2m";
+
+  output.textContent = "查詢中...";
+
+  // TODO 1：await fetch(url)
+  // TODO 2：await response.json()
+  // TODO 3：取出溫度
+  // TODO 4：顯示到畫面
+}
+
+document.getElementById("weatherBtn2").addEventListener("click", getWeatherAsync);</code></pre>
+        </section>
+
+        <section class="demo">
+          <h3>Part 6｜錯誤處理</h3>
+          <div class="goal">目標：加入 try...catch，並檢查 response.ok 與資料格式。</div>
+          <div class="row">
+            <button id="weatherBtn3">查詢天氣（含錯誤處理）</button>
+          </div>
+          <div class="output" id="weatherOutput3">請完成 JavaScript 後測試。</div>
+          <pre><code>async function getWeatherSafe() {
+  const output = document.getElementById("weatherOutput3");
+  output.textContent = "查詢中...";
+
+  try {
+    const url = "https://api.open-meteo.com/v1/forecast?latitude=25.05&amp;longitude=121.52&amp;current=temperature_2m";
+
+    // TODO 1：fetch
+    // TODO 2：如果 !response.ok，就 throw new Error(...)
+    // TODO 3：json 解析
+    // TODO 4：如果資料格式不正確，也要 throw new Error(...)
+    // TODO 5：成功時顯示氣溫
+  } catch (error) {
+    // TODO 6：失敗時顯示「查詢失敗，請稍後再試」
+    console.error(error);
+  }
+}
+
+document.getElementById("weatherBtn3").addEventListener("click", getWeatherSafe);</code></pre>
+        </section>
+
+        <section class="demo">
+          <h3>Part 7｜整合版：城市天氣查詢小工具</h3>
+          <div class="goal">目標：選不同城市，查詢對應溫度。</div>
+          <div class="row">
+            <label for="citySelect">選擇城市：</label>
+            <select id="citySelect">
+              <option value="25.05,121.52">台北</option>
+              <option value="22.63,120.30">高雄</option>
+              <option value="24.15,120.67">台中</option>
+            </select>
+            <button id="searchBtn">查詢天氣</button>
+          </div>
+          <div class="output" id="finalResult">請完成 JavaScript 後測試。</div>
+          <pre><code>async function fetchWeatherByCity() {
+  const cityValue = document.getElementById("citySelect").value;
+  const result = document.getElementById("finalResult");
+
+  // TODO 1：把 "25.05,121.52" 拆成 lat / lon
+  // const [lat, lon] = cityValue.split(",");
+
+  result.textContent = "查詢中...";
+
+  try {
+    // TODO 2：組出 API URL
+    // TODO 3：fetch
+    // TODO 4：檢查 response.ok
+    // TODO 5：json 解析
+    // TODO 6：取出 temperature_2m
+    // TODO 7：顯示「目前氣溫：XX°C」
+  } catch (error) {
+    // TODO 8：失敗時顯示「查詢失敗，請稍後再試」
+    console.error(error);
+  }
+}
+
+document.getElementById("searchBtn").addEventListener("click", fetchWeatherByCity);</code></pre>
+        </section>
+
+        <div class="homework">
+          <h3>回家作業</h3>
+          <p><strong>請完成一個 API 資料查詢小工具（天氣 / 匯率 / 電影 三選一）</strong></p>
+          <ul>
+            <li>必須使用 <code>fetch()</code></li>
+            <li>必須使用 <code>async / await</code></li>
+            <li>至少顯示 2 個 API 回傳欄位</li>
+            <li>必須有 loading 訊息</li>
+            <li>必須有錯誤處理</li>
+            <li>至少一個輸入元件或下拉選單</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // =========================
+    // Part 1｜同步流程示範
+    // =========================
+    document.getElementById("syncBtn").addEventListener("click", () => {
+      const output = document.getElementById("syncOutput");
+      const lines = [];
+
+      // TODO：依序加入三行文字
+      // lines.push("1. 開始");
+      // lines.push("2. 做事情");
+      // lines.push("3. 結束");
+
+      // TODO：把結果顯示到畫面
+      // output.innerHTML = lines.join("<br>");
+    });
+
+    // =========================
+    // Part 2｜Callback 模擬非同步
+    // =========================
+    function getDataWithCallback(callback) {
+      setTimeout(() => {
+        const data = "這是 2 秒後拿到的資料";
+        // TODO：呼叫 callback(data);
+      }, 2000);
+    }
+
+    document.getElementById("callbackBtn").addEventListener("click", () => {
+      const output = document.getElementById("callbackOutput");
+      output.innerHTML = "1. 開始請求資料<br>2. 等待中...";
+
+      // TODO：呼叫 getDataWithCallback
+      // 並在 callback 中把「資料回來了：...」加到畫面上
+    });
+
+    // =========================
+    // Part 3｜Promise 基礎
+    // =========================
+    function getDataWithPromise() {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          const success = true;
+
+          if (success) {
+            // TODO：resolve("資料成功回來了");
+          } else {
+            // TODO：reject("資料取得失敗");
+          }
+        }, 2000);
+      });
+    }
+
+    document.getElementById("promiseBtn").addEventListener("click", () => {
+      const output = document.getElementById("promiseOutput");
+      output.textContent = "開始執行 Promise，請稍候 2 秒...";
+
+      // TODO：用 .then() 顯示成功訊息
+      // TODO：用 .catch() 顯示失敗訊息
+    });
+
+    // =========================
+    // Part 4｜fetch() + JSON（then 版本）
+    // =========================
+    document.getElementById("weatherBtn").addEventListener("click", () => {
+      const output = document.getElementById("weatherOutput");
+      const url = "https://api.open-meteo.com/v1/forecast?latitude=25.05&longitude=121.52&current=temperature_2m";
+
+      output.textContent = "查詢中...";
+
+      // TODO：完成 fetch + then + json + catch
+    });
+
+    // =========================
+    // Part 5｜async / await 版本
+    // =========================
+    async function getWeatherAsync() {
+      const output = document.getElementById("weatherOutput2");
+      const url = "https://api.open-meteo.com/v1/forecast?latitude=25.05&longitude=121.52&current=temperature_2m";
+
+      output.textContent = "查詢中...";
+
+      // TODO：完成 async / await 寫法
+    }
+
+    document.getElementById("weatherBtn2").addEventListener("click", getWeatherAsync);
+
+    // =========================
+    // Part 6｜錯誤處理
+    // =========================
+    async function getWeatherSafe() {
+      const output = document.getElementById("weatherOutput3");
+      output.textContent = "查詢中...";
+
+      try {
+        const url = "https://api.open-meteo.com/v1/forecast?latitude=25.05&longitude=121.52&current=temperature_2m";
+
+        // TODO：fetch
+        // TODO：檢查 response.ok
+        // TODO：json 解析
+        // TODO：檢查資料格式
+        // TODO：成功顯示結果
+      } catch (error) {
+        // TODO：失敗顯示錯誤訊息
+        console.error(error);
+      }
+    }
+
+    document.getElementById("weatherBtn3").addEventListener("click", getWeatherSafe);
+
+    // =========================
+    // Part 7｜整合版小工具
+    // =========================
+    async function fetchWeatherByCity() {
+      const cityValue = document.getElementById("citySelect").value;
+      const result = document.getElementById("finalResult");
+
+      // TODO：拆出 lat / lon
+      // const [lat, lon] = cityValue.split(",");
+
+      result.textContent = "查詢中...";
+
+      try {
+        // TODO：組 URL
+        // TODO：fetch
+        // TODO：檢查 response.ok
+        // TODO：json 解析
+        // TODO：顯示溫度
+      } catch (error) {
+        // TODO：顯示錯誤訊息
+        console.error(error);
+      }
+    }
+
+    document.getElementById("searchBtn").addEventListener("click", fetchWeatherByCity);
+  </script>
+
+  <script src="stu.js"></script>
+</body>
+
+</html>

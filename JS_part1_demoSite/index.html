@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript 教學</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="container py-5">
+    <header class="mb-4">
+      <h1 id="pageTitle" class="mb-3">前端工作坊報名</h1>
+      <p class="text-secondary mb-0">
+        這個頁面是JavaScript 課程的整合範例。
+
+      </p>
+    </header>
+
+    <div class="row g-4">
+      <div class="col-lg-7">
+        <div id="alertBox" class="alert alert-danger d-none" role="alert"></div>
+
+        <form id="signupForm" class="row g-3">
+          <div class="col-md-6">
+            <label for="nameInput" class="form-label">姓名</label>
+            <input type="text" class="form-control" id="nameInput" placeholder="請輸入姓名" />
+          </div>
+
+          <div class="col-md-6">
+            <label for="emailInput" class="form-label">Email</label>
+            <input type="email" class="form-control" id="emailInput" placeholder="name@example.com" />
+          </div>
+
+          <div class="col-12">
+            <label for="sessionSelect" class="form-label">場次</label>
+            <select id="sessionSelect" class="form-select">
+              <option value="">請選擇場次</option>
+              <option value="上午場">上午場</option>
+              <option value="下午場">下午場</option>
+            </select>
+          </div>
+
+          <div class="col-12 d-flex flex-wrap gap-2">
+            <button type="submit" id="submitBtn" class="btn btn-primary">送出報名</button>
+            <button type="button" id="previewBtn" class="btn btn-outline-secondary">顯示預覽</button>
+            <button type="button" id="toggleGuideBtn" class="btn btn-outline-dark">切換教學說明</button>
+            <button type="button" id="loadUserBtn" class="btn btn-outline-success">載入範例使用者</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="col-lg-5">
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title">報名預覽</h5>
+            <p id="previewText" class="mb-0">尚未填寫資料</p>
+          </div>
+        </div>
+
+        <div class="card mb-3" id="guideCard">
+          <div class="card-body">
+            <h5 class="card-title">教學說明區</h5>
+            <p class="mb-2">這一區可以拿來示範：</p>
+            <ul class="mb-0">
+              <li>DOM 選取與修改</li>
+              <li>classList 切換顯示 / 隱藏</li>
+              <li>按鈕事件 click</li>
+              <li>表單驗證與預覽更新</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card d-none" id="apiCard">
+          <div class="card-body">
+            <h5 class="card-title">API 載入結果</h5>
+            <p id="apiResult" class="mb-0">尚未讀取資料</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="my-5" />
+
+    <section>
+      <h2 class="h4 mb-3">教學使用建議</h2>
+      <ol class="text-secondary">
+        <li>先只示範 <code>console.log()</code>，確認 script.js 已成功連上。</li>
+        <li>再示範變數、條件判斷與函式，不急著碰 DOM。</li>
+        <li>接著用 <code>querySelector()</code> 找到元素，修改文字。</li>
+        <li>再加入 click / input / submit 事件。</li>
+        <li>最後才展示 fetch 概念。</li>
+      </ol>
+    </section>
+
+    <section id="demotext">
+      <p><b>Lorem</b> <span>ipsum, dolor sit amet consectetur</span> adipisicing elit. Dignissimos labore vitae officia
+        deleniti tenetur
+        animi velit, reprehenderit adipisci quas asperiores? Et, minima quo. Iure mollitia obcaecati facilis
+        voluptatibus cumque ipsa.</p>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+body {
+  background: #f7f9fc;
+  /* font-size: 2rem; */
+}
+
+#guideCard,
+#apiCard,
+#alertBox,
+#previewText,
+#pageTitle,
+#submitBtn {
+  transition: all 0.25s ease;
+}
+
+/* 給 DOM style 修改範例使用 */
+.highlight-title {
+  color: #0d6efd;
+  letter-spacing: 1px;
+  font-size: 3rem;
+}
+
+/* 給 classList.toggle 範例使用 */
+.hidden-block {
+  display: none;
+}

@@ -80,7 +80,7 @@ document.getElementById("weatherBtn").addEventListener("click", () => {
         .then((response) => response.json())
         .then((data) => {
             const temp = data.current.temperature_2m;
-            output.textContent = `目前溫度：${temp}°C`;
+            output.textContent = `目前台北溫度：${temp}°C`;
         })
         .catch(() => {
             output.textContent = "查詢失敗";

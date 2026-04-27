@@ -86,3 +86,101 @@ document.getElementById("weatherBtn").addEventListener("click", () => {
             output.textContent = "查詢失敗";
         });
 });
+
+
+async function getWeatherAsync() {
+    const output = document.getElementById("weatherOutput2");
+    const url = "https://api.open-meteo.com/v1/forecast?latitude=25.05&longitude=121.52&current=temperature_2m";
+
+    output.textContent = "查詢中...";
+
+    try {
+        // TODO 1：await fetch(url)
+        const response = await fetch(url);
+
+        // TODO 2：await response.json()
+        const data = await response.json();
+
+        // TODO 3：取出溫度
+        const temp = data.current.temperature_2m;
+
+        // TODO 4：顯示到畫面
+        output.textContent = `台北目前溫度：${temp}°C`;
+    } catch (error) {
+        output.textContent = "查詢失敗，請稍後再試";
+        console.error(error);
+    }
+}
+
+document.getElementById("weatherBtn2").addEventListener("click", getWeatherAsync);
+
+//part 6
+async function getWeatherSafe() {
+    const output = document.getElementById("weatherOutput3");
+    output.textContent = "查詢中...";
+
+    try {
+        const url = "https://api.open-meteo.com/v1/forecast?latitude=25.05&amp;longitude=121.52&amp;current=temperature_2m";
+
+        // TODO 1：fetch
+        const response = await fetch(url);
+        // TODO 2：如果 !response.ok，就 throw new Error(...)
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        // TODO 3：json 解析
+        const data = await response.json();
+        // TODO 4：如果資料格式不正確，也要 throw new Error(...)
+        if (!data.current || typeof data.current.temperature_2m !== "number") {
+            throw new Error("資料格式不正確");
+        }
+        // TODO 5：成功時顯示氣溫
+        const temp = data.current.temperature_2m;
+        output.textContent = `台北目前溫度：${temp}°C`;
+    } catch (error) {
+        // TODO 6：失敗時顯示「查詢失敗，請稍後再試」
+        output.textContent = "查詢失敗，請稍後再試";
+        console.error(error);
+    }
+}
+
+//part 7
+document.getElementById("weatherBtn3").addEventListener("click", getWeatherSafe);
+
+async function fetchWeatherByCity() {
+    const cityValue = document.getElementById("citySelect").value;
+    const result = document.getElementById("finalResult");
+
+    // TODO 1：把 "25.05,121.52" 拆成 lat / lon
+    // const [lat, lon] = cityValue.split(",");
+    const [lat, lon] = cityValue.split(",").map(Number);
+
+
+    result.textContent = "查詢中...";
+
+    try {
+        // TODO 2：組出 API URL
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m`;
+        // TODO 3：fetch
+        const response = await fetch(url);
+        // TODO 4：檢查 response.ok
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        // TODO 5：json 解析
+        const data = await response.json();
+        // TODO 6：取出 temperature_2m
+        const temp = data.current.temperature_2m;
+        // TODO 7：顯示「目前氣溫：XX°C」
+        result.textContent = `目前氣溫：${temp}°C`;
+    } catch (error) {
+        // TODO 8：失敗時顯示「查詢失敗，請稍後再試」
+        result.textContent = "查詢失敗，請稍後再試";
+        console.error(error);
+    }
+}
+
+document.getElementById("searchBtn").addEventListener("click", fetchWeatherByCity);
+
+
+

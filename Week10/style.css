@@ -1,0 +1,33 @@
+body {
+    text-align: center;
+    background-color: lightblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#container {
+    background-color: rgb(244, 170, 32);
+    margin-top: 50px;
+    border: solid black 2px;
+
+    width: 500px;
+    height: 300px;
+    border-radius: 15%;
+}
+
+#btn {
+
+    background-color: yellow;
+}
+
+output {
+    display: inline-block;
+    transition: 0.3s;
+    color: blue;
+}
+
+output:hover {
+    transform: scale(1.2);
+    color: red;
+}

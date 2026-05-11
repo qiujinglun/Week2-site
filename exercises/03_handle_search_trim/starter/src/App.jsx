@@ -7,6 +7,11 @@ export default function App() {
   function handleSearch() {
     // TODO: 空白時顯示「請先輸入關鍵字」
     // TODO: 有內容時顯示「正在搜尋 XXX」
+    if (keyword.trim() === "") {
+      setMessage("請先輸入關鍵字");
+      return;
+    }
+    setMessage(`你搜尋的是：${keyword.trim()}`);
   }
 
   return (

@@ -15,12 +15,21 @@ function ResultCard({ title, desc }) {
     </div>
   );
 }
+function ResultList() {
+  return (
+    <div>
+      <ResultCard title="React 課程" desc="認識元件化網頁前端" />
+      <ResultCard title="網站建置管理" desc="了解網頁前後端相關知識" />
+    </div>
+  );
+}
 
 export default function App() {
   return (
     <div className="container">
       <h1>請完成 ResultList，並把整個頁面組起來</h1>
       <SearchForm />
+      <ResultList />
     </div>
   );
 }
